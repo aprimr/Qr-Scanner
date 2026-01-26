@@ -10,6 +10,7 @@ class AppTheme {
     brightness: Brightness.light,
     colorScheme: const ColorScheme.light(
       surface: _primaryColor,
+      inverseSurface: _secondaryColor,
       primary: _accentColor,
       onPrimary: _primaryColor,
       outline: Color(0xFF495F7E),
@@ -21,6 +22,7 @@ class AppTheme {
     brightness: Brightness.dark,
     colorScheme: const ColorScheme.dark(
       surface: _secondaryColor,
+      inverseSurface: _primaryColor,
       primary: _accentColor,
       onPrimary: _secondaryColor,
       outline: Color(0xFF97A1AD),

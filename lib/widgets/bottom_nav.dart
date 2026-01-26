@@ -4,7 +4,6 @@ import 'package:qr_code/screens/create.dart';
 import 'package:qr_code/screens/favourites.dart';
 import 'package:qr_code/screens/history.dart';
 import 'package:qr_code/screens/scan.dart';
-import 'package:qr_code/utils/theme.dart';
 import 'package:qr_code/widgets/buttons/toggle_theme_button.dart';
 
 class BottomNav extends StatefulWidget {
@@ -50,6 +49,7 @@ class _BottomNavState extends State<BottomNav> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.surface,
         actions: [
           ToggleThemeButton(),
           IconButton(
