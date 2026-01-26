@@ -4,6 +4,8 @@ import 'package:qr_code/screens/create.dart';
 import 'package:qr_code/screens/favourites.dart';
 import 'package:qr_code/screens/history.dart';
 import 'package:qr_code/screens/scan.dart';
+import 'package:qr_code/utils/theme.dart';
+import 'package:qr_code/widgets/buttons/toggle_theme_button.dart';
 
 class BottomNav extends StatefulWidget {
   const BottomNav({super.key});
@@ -47,6 +49,21 @@ class _BottomNavState extends State<BottomNav> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        actions: [
+          ToggleThemeButton(),
+          IconButton(
+            onPressed: () {},
+            icon: HugeIcon(
+              size: 22,
+              strokeWidth: 2,
+              icon: HugeIcons.strokeRoundedSettings01,
+              color: Theme.of(context).colorScheme.outline,
+            ),
+          ),
+          SizedBox(width: 10),
+        ],
+      ),
       body: PageView(
         controller: _pageController,
         onPageChanged: _onPageChanged,
@@ -56,26 +73,47 @@ class _BottomNavState extends State<BottomNav> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         onTap: _onTappedItem,
+        type: BottomNavigationBarType.fixed,
         items: [
           BottomNavigationBarItem(
-            icon: HugeIcon(icon: HugeIcons.strokeRoundedIrisScan),
+            icon: HugeIcon(
+              icon: HugeIcons.strokeRoundedQrCode01,
+              strokeWidth: 1.5,
+              size: 24,
+            ),
             label: 'Scan',
           ),
           BottomNavigationBarItem(
-            icon: HugeIcon(icon: HugeIcons.strokeRoundedQrCode),
+            icon: HugeIcon(
+              icon: HugeIcons.strokeRoundedQrCode,
+              strokeWidth: 1.5,
+              size: 24,
+            ),
             label: 'Create',
           ),
           BottomNavigationBarItem(
-            icon: HugeIcon(icon: HugeIcons.strokeRoundedFavourite),
+            icon: HugeIcon(
+              icon: HugeIcons.strokeRoundedFavourite,
+              strokeWidth: 1.5,
+              size: 24,
+            ),
             label: 'Favourites',
           ),
           BottomNavigationBarItem(
-            icon: HugeIcon(icon: HugeIcons.strokeRoundedSettings01),
-            label: 'Setting',
+            icon: HugeIcon(
+              icon: HugeIcons.strokeRoundedTransactionHistory,
+              strokeWidth: 1.5,
+              size: 24,
+            ),
+            label: 'History',
           ),
         ],
-        selectedIconTheme: IconThemeData(color: Colors.black),
-        unselectedIconTheme: IconThemeData(color: Colors.grey),
+        selectedIconTheme: IconThemeData(
+          color: Theme.of(context).colorScheme.primary,
+        ),
+        unselectedIconTheme: IconThemeData(
+          color: Theme.of(context).colorScheme.outline,
+        ),
         showSelectedLabels: false,
         showUnselectedLabels: false,
       ),
