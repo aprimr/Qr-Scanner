@@ -4,6 +4,7 @@ class AppTheme {
   static const Color _primaryColor = Color(0xFFFFFFFF);
   static const Color _secondaryColor = Color(0xFF000000);
   static const Color _accentColor = Color(0xFF32CD32);
+  static const Color _errorColor = Color(0xFFEB0000);
 
   // Light Theme
   static final ThemeData lightTheme = ThemeData(
@@ -14,6 +15,8 @@ class AppTheme {
       primary: _accentColor,
       onPrimary: _primaryColor,
       outline: Color(0xFF495F7E),
+      error: _errorColor,
+      onError: _primaryColor,
     ),
   );
 
@@ -26,6 +29,8 @@ class AppTheme {
       primary: _accentColor,
       onPrimary: _secondaryColor,
       outline: Color(0xFF97A1AD),
+      error: _errorColor,
+      onError: _primaryColor,
     ),
   );
 }

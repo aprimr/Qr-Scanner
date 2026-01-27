@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:qr_code/utils/routes.dart';
 import 'package:qr_code/widgets/qr_scanner_overlay.dart';
+import 'package:qr_code/widgets/snackbar.dart';
 
 class Scan extends StatefulWidget {
   const Scan({super.key});
@@ -14,8 +16,80 @@ class Scan extends StatefulWidget {
 class _ScanState extends State<Scan> {
   bool isFlashOn = false;
   bool isBackCam = true;
-
+  bool isScanned = false;
   final MobileScannerController _scannerController = MobileScannerController();
+
+  //----
+  // Flash and Cam Functions
+  //----
+  void _toggleFlash() {
+    setState(() {
+      isFlashOn = !isFlashOn;
+    });
+    _scannerController.toggleTorch();
+  }
+
+  void _toggleCam() {
+    setState(() {
+      isFlashOn = false;
+      isBackCam = !isBackCam;
+    });
+    _scannerController.switchCamera();
+  }
+
+  //----
+  // QR Functions
+  //----
+  void _onDetect(BarcodeCapture result) {
+    if (isScanned == true) return;
+
+    final String code = result.barcodes.first.rawValue!;
+
+    //----
+    // Return if the reslult is null
+    //----
+    if (code.isEmpty) {
+      setState(() {
+        isScanned = false;
+      });
+      return;
+    }
+
+    //----
+    // If scan success, set `isScanned` true
+    // And if flashOn, set `isFlashOn` false and toggle torch
+    //----
+    if (code.isNotEmpty) {
+      setState(() {
+        isScanned = true;
+        if (isFlashOn) {
+          isFlashOn = false;
+          _scannerController.toggleTorch();
+        }
+      });
+
+      Navigator.pushNamed(
+        context,
+        AppRoutes.scanResultRoute,
+        arguments: {'qrData': result},
+      ).then((_) {
+        //----
+        // If screen mounts, set `isScanned` to false
+        // so that user can scan another QR
+        //----
+        if (mounted) {
+          setState(() {
+            isScanned = false;
+          });
+        }
+      });
+    }
+  }
+
+  void _onDetectError(Object error, StackTrace stackTrace) {
+    showSnackbar(context, message: error.toString());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,32 +99,22 @@ class _ScanState extends State<Scan> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             IconButton(
-              onPressed: () {
-                setState(() {
-                  isFlashOn = !isFlashOn;
-                });
-                _scannerController.toggleTorch();
-              },
+              onPressed: _toggleFlash,
               icon: HugeIcon(
                 size: 24,
                 icon: isFlashOn
                     ? HugeIcons.strokeRoundedFlashOff
                     : HugeIcons.strokeRoundedFlash,
-                color: Theme.of(context).colorScheme.outline,
+                color: Theme.of(context).colorScheme.inverseSurface,
               ),
             ),
             SizedBox(width: 14),
             IconButton(
-              onPressed: () {
-                setState(() {
-                  isBackCam = !isBackCam;
-                });
-                _scannerController.switchCamera();
-              },
+              onPressed: _toggleCam,
               icon: HugeIcon(
                 size: 24,
                 icon: HugeIcons.strokeRoundedExchange01,
-                color: Theme.of(context).colorScheme.outline,
+                color: Theme.of(context).colorScheme.inverseSurface,
               ),
             ),
             SizedBox(width: 14),
@@ -59,7 +123,7 @@ class _ScanState extends State<Scan> {
               icon: HugeIcon(
                 size: 24,
                 icon: HugeIcons.strokeRoundedImageUpload,
-                color: Theme.of(context).colorScheme.outline,
+                color: Theme.of(context).colorScheme.inverseSurface,
               ),
             ),
           ],
@@ -76,11 +140,11 @@ class _ScanState extends State<Scan> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Text(
-                      'Place Qr code inside frame',
+                      'Place QR code inside frame',
                       style: TextStyle(
-                        fontSize: 18,
-                        fontFamily: GoogleFonts.poppins().fontFamily,
-                        color: Theme.of(context).colorScheme.inverseSurface,
+                        fontSize: 20,
+                        fontFamily: GoogleFonts.googleSans().fontFamily,
+                        color: Theme.of(context).colorScheme.outline,
                       ),
                     ),
                   ],
@@ -92,10 +156,13 @@ class _ScanState extends State<Scan> {
                   children: [
                     MobileScanner(
                       controller: _scannerController,
-                      onDetect: (barcodes) {},
+                      onDetect: _onDetect,
+                      onDetectError: _onDetectError,
                     ),
 
+                    //----
                     // Scanner Overlay
+                    //----
                     Positioned.fill(
                       child: CustomPaint(
                         painter: ScannerOverlayPainter(

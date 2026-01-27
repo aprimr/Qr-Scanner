@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_code/provider/theme_provider.dart';
 import 'package:qr_code/screens/scan.dart';
+import 'package:qr_code/screens/scan_result.dart';
 import 'package:qr_code/utils/routes.dart';
 import 'package:qr_code/utils/theme.dart';
 import 'package:qr_code/widgets/bottom_nav.dart';
@@ -31,7 +32,10 @@ class MyApp extends StatelessWidget {
           ? ThemeMode.dark
           : ThemeMode.light,
       debugShowCheckedModeBanner: false,
-      routes: {AppRoutes.homeRoute: (context) => Scan()},
+      routes: {
+        AppRoutes.homeRoute: (context) => Scan(),
+        AppRoutes.scanResultRoute: (context) => ScanResult(),
+      },
     );
   }
 }
