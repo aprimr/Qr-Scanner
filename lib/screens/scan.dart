@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:qr_code/models/qr_code_model.dart';
 import 'package:qr_code/utils/routes.dart';
 import 'package:qr_code/widgets/qr_scanner_overlay.dart';
 import 'package:qr_code/widgets/snackbar.dart';
@@ -43,7 +44,8 @@ class _ScanState extends State<Scan> {
   void _onDetect(BarcodeCapture result) {
     if (isScanned == true) return;
 
-    final String code = result.barcodes.first.rawValue!;
+    final String code = result.barcodes.first.rawValue ?? "";
+    final QRCodeModel qrCodeModel = QRCodeModel.fromRaw(code);
 
     //----
     // Return if the reslult is null
@@ -71,7 +73,7 @@ class _ScanState extends State<Scan> {
       Navigator.pushNamed(
         context,
         AppRoutes.scanResultRoute,
-        arguments: {'qrData': result},
+        arguments: qrCodeModel,
       ).then((_) {
         //----
         // If screen mounts, set `isScanned` to false

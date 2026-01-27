@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hugeicons/hugeicons.dart';
-import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:qr_code/models/qr_code_model.dart';
+import 'package:qr_code/widgets/buttons/toggle_theme_button.dart';
 
 class ScanResult extends StatefulWidget {
   const ScanResult({super.key});
@@ -11,7 +12,13 @@ class ScanResult extends StatefulWidget {
 }
 
 class _ScanResultState extends State<ScanResult> {
-  bool isFavourite = true;
+  late bool isFavourite;
+
+  @override
+  void initState() {
+    super.initState();
+    isFavourite = false;
+  }
 
   //----
   // Functions
@@ -24,7 +31,8 @@ class _ScanResultState extends State<ScanResult> {
 
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments as BarcodeCapture;
+    final qrCodeModel =
+        ModalRoute.of(context)!.settings.arguments as QRCodeModel?;
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -36,6 +44,7 @@ class _ScanResultState extends State<ScanResult> {
           ),
         ),
         actions: [
+          ToggleThemeButton(),
           IconButton(
             onPressed: _handleFavouriteTap,
             icon: isFavourite
@@ -53,29 +62,120 @@ class _ScanResultState extends State<ScanResult> {
         padding: EdgeInsetsGeometry.symmetric(horizontal: 20, vertical: 14),
         child: Column(
           children: [
+            // QR Type
+            TypeBar(qrCodeModel: qrCodeModel!),
             Expanded(
               flex: 7,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Scanned Result
-                  Text(
-                    args.barcodes.first.rawValue!,
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontFamily: GoogleFonts.poppins().fontFamily,
-                    ),
-                  ),
-                  SizedBox(height: 20),
-
-                  //  Actions
-                  ActionBar(),
-                ],
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    // Scanned Result
+                    ScannedResult(qrCodeModel: qrCodeModel),
+                    SizedBox(height: 24),
+                    //  Actions
+                    ActionBar(),
+                  ],
+                ),
               ),
             ),
             Expanded(child: Container(color: Colors.red)),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class TypeBar extends StatelessWidget {
+  final QRCodeModel qrCodeModel;
+
+  const TypeBar({super.key, required this.qrCodeModel});
+
+  @override
+  Widget build(BuildContext context) {
+    late List<List<dynamic>> icon;
+    late String typeText;
+
+    switch (qrCodeModel.type) {
+      case QRType.text:
+        icon = HugeIcons.strokeRoundedText;
+        typeText = "TEXT";
+        break;
+      case QRType.email:
+        icon = HugeIcons.strokeRoundedMail01;
+        typeText = "E-MAIL";
+        break;
+      case QRType.wifi:
+        icon = HugeIcons.strokeRoundedWifi01;
+        typeText = "WI-FI";
+        break;
+      case QRType.url:
+        icon = HugeIcons.strokeRoundedLink03;
+        typeText = "URL";
+        break;
+      case QRType.call:
+        icon = HugeIcons.strokeRoundedCall02;
+        typeText = "CALL";
+        break;
+      case QRType.sms:
+        icon = HugeIcons.strokeRoundedMessage02;
+        typeText = "SMS";
+        break;
+      case QRType.whatsApp:
+        icon = HugeIcons.strokeRoundedWhatsapp;
+        typeText = "WHATSAPP";
+        break;
+    }
+
+    return Column(
+      children: [
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              height: 32,
+              width: 32,
+              padding: EdgeInsets.all(7),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(6),
+                color: Theme.of(context).colorScheme.inverseSurface,
+              ),
+              child: HugeIcon(
+                strokeWidth: 3,
+                icon: icon,
+                color: Theme.of(context).colorScheme.surface,
+              ),
+            ),
+            SizedBox(width: 8),
+            Text(
+              typeText,
+              style: TextStyle(
+                fontSize: 20,
+                color: Theme.of(context).colorScheme.inverseSurface,
+                fontWeight: FontWeight.w600,
+                fontFamily: GoogleFonts.inter().fontFamily,
+              ),
+            ),
+          ],
+        ),
+        SizedBox(height: 20),
+      ],
+    );
+  }
+}
+
+class ScannedResult extends StatelessWidget {
+  final QRCodeModel qrCodeModel;
+  const ScannedResult({super.key, required this.qrCodeModel});
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      qrCodeModel.displayData,
+      style: TextStyle(
+        fontSize: 18,
+        height: 1.5,
+        fontFamily: GoogleFonts.poppins().fontFamily,
       ),
     );
   }
