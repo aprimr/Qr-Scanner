@@ -5,7 +5,7 @@ import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:qr_code/models/qr_code_model.dart';
 import 'package:qr_code/utils/routes.dart';
 import 'package:qr_code/widgets/qr_scanner_overlay.dart';
-import 'package:qr_code/widgets/snackbar.dart';
+import 'package:qr_code/services/snackbar.dart';
 
 class Scan extends StatefulWidget {
   const Scan({super.key});

@@ -2,7 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:qr_code/models/qr_code_model.dart';
+import 'package:qr_code/services/connect_wifi.dart';
+import 'package:qr_code/services/copy_to_clipboard.dart';
+import 'package:qr_code/services/open_call.dart';
+import 'package:qr_code/services/open_mail.dart';
+import 'package:qr_code/services/open_sms.dart';
+import 'package:qr_code/services/open_url.dart';
+import 'package:qr_code/services/open_whatsapp.dart';
+import 'package:qr_code/services/search_web.dart';
 import 'package:qr_code/widgets/buttons/toggle_theme_button.dart';
+import 'package:share_plus/share_plus.dart';
+
+class _ActionItem {
+  final List<List<dynamic>> icon;
+  final String label;
+  final VoidCallback onTap;
+
+  _ActionItem({required this.icon, required this.label, required this.onTap});
+}
 
 class ScanResult extends StatefulWidget {
   const ScanResult({super.key});
@@ -68,12 +85,16 @@ class _ScanResultState extends State<ScanResult> {
               flex: 7,
               child: SingleChildScrollView(
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // Scanned Result
                     ScannedResult(qrCodeModel: qrCodeModel),
                     SizedBox(height: 24),
                     //  Actions
-                    ActionBar(),
+                    ActionBar(
+                      qrCodeModel: qrCodeModel,
+                      scannedData: qrCodeModel.displayData,
+                    ),
                   ],
                 ),
               ),
@@ -115,7 +136,7 @@ class TypeBar extends StatelessWidget {
         break;
       case QRType.call:
         icon = HugeIcons.strokeRoundedCall02;
-        typeText = "CALL";
+        typeText = "PHONE";
         break;
       case QRType.sms:
         icon = HugeIcons.strokeRoundedMessage02;
@@ -135,13 +156,13 @@ class TypeBar extends StatelessWidget {
             Container(
               height: 32,
               width: 32,
-              padding: EdgeInsets.all(7),
+              padding: EdgeInsets.all(6),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(6),
                 color: Theme.of(context).colorScheme.inverseSurface,
               ),
               child: HugeIcon(
-                strokeWidth: 3,
+                strokeWidth: 1.5,
                 icon: icon,
                 color: Theme.of(context).colorScheme.surface,
               ),
@@ -182,66 +203,172 @@ class ScannedResult extends StatelessWidget {
 }
 
 class ActionBar extends StatelessWidget {
-  const ActionBar({super.key});
+  final QRCodeModel qrCodeModel;
+  final String scannedData;
+
+  const ActionBar({
+    super.key,
+    required this.qrCodeModel,
+    required this.scannedData,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final actions = _getActions(
+      context,
+      qrCodeModel: qrCodeModel,
+      scannedData: scannedData,
+    );
+
     return Row(
-      children: [
-        _buildActionButton(
-          context,
-          icon: HugeIcons.strokeRoundedSearch01,
-          label: "Search",
-          onTap: () => print("Search tapped"),
-        ),
-        _buildActionButton(
-          context,
-          icon: HugeIcons.strokeRoundedCopy01,
-          label: "Copy",
-          onTap: () => print("Copy tapped"),
-        ),
-        _buildActionButton(
-          context,
-          icon: HugeIcons.strokeRoundedSent,
-          label: "Share",
-          onTap: () => print("Share tapped"),
-        ),
-      ],
+      children: actions
+          .map(
+            (action) => Expanded(
+              child: InkWell(
+                onTap: action.onTap,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 12),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      HugeIcon(
+                        size: 30,
+                        icon: action.icon,
+                        color: Theme.of(context).colorScheme.outline,
+                      ),
+                      const SizedBox(height: 8),
+                      Center(
+                        child: Text(
+                          action.label,
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Theme.of(context).colorScheme.outline,
+                            fontFamily: GoogleFonts.poppins().fontFamily,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          )
+          .toList(),
     );
   }
 
-  Widget _buildActionButton(
+  List<_ActionItem> _getActions(
     BuildContext context, {
-    required List<List<dynamic>> icon,
-    required String label,
-    required VoidCallback onTap,
+    required QRCodeModel qrCodeModel,
+    required String scannedData,
   }) {
-    return Expanded(
-      child: InkWell(
-        onTap: onTap,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 12.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              HugeIcon(
-                size: 30,
-                icon: icon,
-                color: Theme.of(context).colorScheme.outline,
-              ),
-              const SizedBox(height: 6),
-              Text(
-                label,
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Theme.of(context).colorScheme.outline,
-                  fontFamily: GoogleFonts.poppins().fontFamily,
-                ),
-              ),
-            ],
+    final List<_ActionItem> actions = [];
+
+    switch (qrCodeModel.type) {
+      case QRType.email:
+        actions.add(
+          _ActionItem(
+            icon: HugeIcons.strokeRoundedMail01,
+            label: "Mail It",
+            onTap: () {
+              openMail(context, data: qrCodeModel.rawData);
+            },
           ),
-        ),
+        );
+        break;
+
+      case QRType.url:
+        actions.add(
+          _ActionItem(
+            icon: HugeIcons.strokeRoundedLinkSquare02,
+            label: "Open Link",
+            onTap: () {
+              openUrl(context, data: scannedData);
+            },
+          ),
+        );
+        break;
+
+      case QRType.wifi:
+        actions.add(
+          _ActionItem(
+            icon: HugeIcons.strokeRoundedWifi01,
+            label: "Connect",
+            onTap: () {
+              connectWifi();
+            },
+          ),
+        );
+        break;
+
+      case QRType.call:
+        actions.add(
+          _ActionItem(
+            icon: HugeIcons.strokeRoundedCallRinging04,
+            label: "Call",
+            onTap: () {
+              openCall(context, data: qrCodeModel.rawData);
+            },
+          ),
+        );
+        break;
+
+      case QRType.whatsApp:
+        actions.add(
+          _ActionItem(
+            icon: HugeIcons.strokeRoundedLinkSquare02,
+            label: "Open WhatsApp",
+            onTap: () {
+              openWhatsApp(context, data: qrCodeModel.rawData);
+            },
+          ),
+        );
+        break;
+
+      case QRType.sms:
+        actions.add(
+          _ActionItem(
+            icon: HugeIcons.strokeRoundedLinkSquare02,
+            label: "Open App",
+            onTap: () {
+              openSms(context, data: qrCodeModel.rawData);
+            },
+          ),
+        );
+        break;
+
+      default:
+        actions.add(
+          _ActionItem(
+            icon: HugeIcons.strokeRoundedSearch01,
+            label: "Web Search",
+            onTap: () {
+              webSearch(context, data: scannedData);
+            },
+          ),
+        );
+    }
+
+    // Always-visible actions
+    actions.addAll([
+      _ActionItem(
+        icon: HugeIcons.strokeRoundedCopy01,
+        label: "Copy",
+        onTap: () {
+          copyToClipboard(data: scannedData);
+        },
       ),
-    );
+      _ActionItem(
+        icon: HugeIcons.strokeRoundedSent,
+        label: "Share",
+        onTap: () async {
+          await SharePlus.instance.share(
+            ShareParams(title: 'Scanned Result', text: qrCodeModel.rawData),
+          );
+        },
+      ),
+    ]);
+
+    return actions;
   }
 }
