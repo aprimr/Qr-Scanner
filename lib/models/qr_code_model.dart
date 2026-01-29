@@ -106,7 +106,7 @@ class QRCodeModel {
         String semiResult = result.isNotEmpty
             ? result.join(' \n').trim().toString()
             : cleanRaw;
-        return semiResult.substring(0, semiResult.length - 2);
+        return semiResult;
       } catch (e) {
         return cleanRaw;
       }

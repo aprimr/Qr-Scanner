@@ -99,7 +99,7 @@ class _ScanResultState extends State<ScanResult> {
                 ),
               ),
             ),
-            Expanded(child: Container(color: Colors.red)),
+            Expanded(child: Container()),
           ],
         ),
       ),
@@ -329,7 +329,7 @@ class ActionBar extends StatelessWidget {
         actions.add(
           _ActionItem(
             icon: HugeIcons.strokeRoundedLinkSquare02,
-            label: "Open App",
+            label: "Send Sms",
             onTap: () {
               openSms(context, data: qrCodeModel.rawData);
             },
