@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:qr_code/utils/routes.dart';
 
 class CreateTextQr extends StatefulWidget {
   const CreateTextQr({super.key});
@@ -11,9 +12,22 @@ class CreateTextQr extends StatefulWidget {
 class _CreateTextQrState extends State<CreateTextQr> {
   final _formKey = GlobalKey<FormState>();
 
+  // controllers for form input
+  final TextEditingController _textController = TextEditingController();
+
+  @override
+  void dispose() {
+    _textController.dispose();
+    super.dispose();
+  }
+
   // Submit form
   void submitForm() {
-    if (_formKey.currentState!.validate()) {}
+    if (_formKey.currentState!.validate()) {
+      // String text = _textController.text;
+      // Navigate to Create Result
+      Navigator.pushNamed(context, AppRoutes.createResultRoute);
+    }
   }
 
   @override
@@ -31,6 +45,7 @@ class _CreateTextQrState extends State<CreateTextQr> {
                   children: [
                     SizedBox(height: 20),
                     TextFormField(
+                      controller: _textController,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter some text';
@@ -75,7 +90,7 @@ class _CreateTextQrState extends State<CreateTextQr> {
                         errorBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                           borderSide: BorderSide(
-                            width: 1.5,
+                            width: 1.3,
                             color: Theme.of(context).colorScheme.error,
                           ),
                         ),

@@ -359,7 +359,7 @@ class ActionBar extends StatelessWidget {
         },
       ),
       _ActionItem(
-        icon: HugeIcons.strokeRoundedSent,
+        icon: HugeIcons.strokeRoundedShare01,
         label: "Share",
         onTap: () async {
           await SharePlus.instance.share(
