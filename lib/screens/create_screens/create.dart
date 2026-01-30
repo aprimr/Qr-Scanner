@@ -41,7 +41,7 @@ class Create extends StatelessWidget {
                 Tab(text: "Email"),
                 Tab(text: "Phone"),
                 Tab(text: "SMS"),
-                Tab(text: "Whatsapp"),
+                Tab(text: "WhatsApp"),
               ],
             ),
             const Expanded(
