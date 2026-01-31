@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_code/provider/theme_provider.dart';
-import 'package:qr_code/screens/create_screens/create_result.dart';
+import 'package:qr_code/screens/create_result.dart';
 import 'package:qr_code/screens/scan.dart';
 import 'package:qr_code/screens/scan_result.dart';
 import 'package:qr_code/utils/routes.dart';

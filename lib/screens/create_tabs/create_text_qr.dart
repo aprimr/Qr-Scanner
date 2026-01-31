@@ -24,9 +24,13 @@ class _CreateTextQrState extends State<CreateTextQr> {
   // Submit form
   void submitForm() {
     if (_formKey.currentState!.validate()) {
-      // String text = _textController.text;
-      // Navigate to Create Result
-      Navigator.pushNamed(context, AppRoutes.createResultRoute);
+      String text = _textController.text;
+      // Navigate to Create Result Screen
+      Navigator.pushNamed(
+        context,
+        AppRoutes.createResultRoute,
+        arguments: text,
+      );
     }
   }
 

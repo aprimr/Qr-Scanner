@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:qr_code/screens/create_screens/create_email_qr.dart';
-import 'package:qr_code/screens/create_screens/create_phone_qr.dart';
-import 'package:qr_code/screens/create_screens/create_sms_qr.dart';
-import 'package:qr_code/screens/create_screens/create_text_qr.dart';
-import 'package:qr_code/screens/create_screens/create_url_qr.dart';
-import 'package:qr_code/screens/create_screens/create_whatsapp_qr.dart';
-import 'package:qr_code/screens/create_screens/create_wifi_qr.dart';
+import 'package:qr_code/screens/create_tabs/create_email_qr.dart';
+import 'package:qr_code/screens/create_tabs/create_phone_qr.dart';
+import 'package:qr_code/screens/create_tabs/create_sms_qr.dart';
+import 'package:qr_code/screens/create_tabs/create_text_qr.dart';
+import 'package:qr_code/screens/create_tabs/create_url_qr.dart';
+import 'package:qr_code/screens/create_tabs/create_whatsapp_qr.dart';
+import 'package:qr_code/screens/create_tabs/create_wifi_qr.dart';
 
 class Create extends StatelessWidget {
   const Create({super.key});

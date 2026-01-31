@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
-import 'package:qr_code/screens/create_screens/create.dart';
+import 'package:qr_code/screens/create_tabs/create.dart';
 import 'package:qr_code/screens/favourites.dart';
 import 'package:qr_code/screens/history.dart';
 import 'package:qr_code/screens/scan.dart';
