@@ -2,10 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:provider/provider.dart';
 import 'package:qr_code/models/qr_code_model.dart';
+import 'package:qr_code/provider/settings_provider.dart';
+import 'package:qr_code/services/audio_player.dart';
 import 'package:qr_code/utils/routes.dart';
 import 'package:qr_code/widgets/qr_scanner_overlay.dart';
 import 'package:qr_code/services/snackbar.dart';
+import 'package:vibration/vibration.dart';
 
 class Scan extends StatefulWidget {
   const Scan({super.key});
@@ -19,6 +23,13 @@ class _ScanState extends State<Scan> {
   bool isBackCam = true;
   bool isScanned = false;
   final MobileScannerController _scannerController = MobileScannerController();
+  late final SettingsProvider settingsData;
+
+  @override
+  void initState() {
+    super.initState();
+    settingsData = Provider.of<SettingsProvider>(context, listen: false);
+  }
 
   //----
   // Flash and Cam Functions
@@ -41,7 +52,7 @@ class _ScanState extends State<Scan> {
   //----
   // QR Functions
   //----
-  void _onDetect(BarcodeCapture result) {
+  void _onDetect(BarcodeCapture result) async {
     if (isScanned == true) return;
 
     final String code = result.barcodes.first.rawValue ?? "";
@@ -70,6 +81,15 @@ class _ScanState extends State<Scan> {
         }
       });
 
+      // beep on scan
+      if (settingsData.beepOnScan) {
+        beep();
+      }
+      // Vibrate on scan
+      if (await Vibration.hasVibrator() && settingsData.vibrateOnScan) {
+        Vibration.vibrate(duration: 200);
+      }
+      if (!mounted) return;
       Navigator.pushNamed(
         context,
         AppRoutes.scanResultRoute,

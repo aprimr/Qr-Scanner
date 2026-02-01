@@ -4,6 +4,7 @@ import 'package:qr_code/screens/create_tabs/create.dart';
 import 'package:qr_code/screens/favourites.dart';
 import 'package:qr_code/screens/history.dart';
 import 'package:qr_code/screens/scan.dart';
+import 'package:qr_code/utils/routes.dart';
 import 'package:qr_code/widgets/buttons/toggle_theme_button.dart';
 
 class BottomNav extends StatefulWidget {
@@ -53,7 +54,9 @@ class _BottomNavState extends State<BottomNav> {
         actions: [
           ToggleThemeButton(),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, AppRoutes.settingRoute);
+            },
             icon: HugeIcon(
               size: 22,
               strokeWidth: 2,

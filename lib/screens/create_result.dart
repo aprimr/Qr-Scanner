@@ -7,6 +7,8 @@ import 'package:gal/gal.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:provider/provider.dart';
+import 'package:qr_code/provider/settings_provider.dart';
 import 'package:qr_code/services/snackbar.dart';
 import 'package:qr_code/widgets/buttons/toggle_theme_button.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -68,6 +70,7 @@ class _CreateResultState extends State<CreateResult> {
   @override
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as String;
+    final settingsData = context.watch<SettingsProvider>();
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -100,13 +103,17 @@ class _CreateResultState extends State<CreateResult> {
                           child: QrImageView(
                             data: args,
                             eyeStyle: QrEyeStyle(
-                              eyeShape: QrEyeShape.circle,
+                              eyeShape: settingsData.isRoundedEyes
+                                  ? QrEyeShape.circle
+                                  : QrEyeShape.square,
                               color: Theme.of(
                                 context,
                               ).colorScheme.inverseSurface,
                             ),
                             dataModuleStyle: QrDataModuleStyle(
-                              dataModuleShape: QrDataModuleShape.circle,
+                              dataModuleShape: settingsData.isRoundedDots
+                                  ? QrDataModuleShape.circle
+                                  : QrDataModuleShape.square,
                               color: Theme.of(
                                 context,
                               ).colorScheme.inverseSurface,
