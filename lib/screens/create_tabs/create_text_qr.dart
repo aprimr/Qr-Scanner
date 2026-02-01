@@ -69,7 +69,7 @@ class _CreateTextQrState extends State<CreateTextQr> {
                           " Enter some text ",
                           style: TextStyle(
                             fontFamily: GoogleFonts.poppins().fontFamily,
-                            color: Theme.of(context).colorScheme.inverseSurface,
+                            color: Theme.of(context).colorScheme.outline,
                           ),
                         ),
                         errorStyle: TextStyle(

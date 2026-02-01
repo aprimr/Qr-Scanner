@@ -66,10 +66,10 @@ class _CreateUrlQrState extends State<CreateUrlQr> {
                       decoration: InputDecoration(
                         alignLabelWithHint: true,
                         label: Text(
-                          " Enter some URL ",
+                          " Enter URL ",
                           style: TextStyle(
                             fontFamily: GoogleFonts.poppins().fontFamily,
-                            color: Theme.of(context).colorScheme.inverseSurface,
+                            color: Theme.of(context).colorScheme.outline,
                           ),
                         ),
                         errorStyle: TextStyle(
