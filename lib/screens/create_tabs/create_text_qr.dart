@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:qr_code/utils/routes.dart';
+import 'package:qr_code/widgets/buttons/primary_button.dart';
 
 class CreateTextQr extends StatefulWidget {
   const CreateTextQr({super.key});
@@ -67,9 +68,8 @@ class _CreateTextQrState extends State<CreateTextQr> {
                         label: Text(
                           " Enter some text ",
                           style: TextStyle(
-                            fontWeight: FontWeight.w600,
                             fontFamily: GoogleFonts.poppins().fontFamily,
-                            color: Theme.of(context).colorScheme.outline,
+                            color: Theme.of(context).colorScheme.inverseSurface,
                           ),
                         ),
                         errorStyle: TextStyle(
@@ -88,7 +88,7 @@ class _CreateTextQrState extends State<CreateTextQr> {
                           borderRadius: BorderRadius.circular(10),
                           borderSide: BorderSide(
                             width: 1.5,
-                            color: Theme.of(context).colorScheme.outline,
+                            color: Theme.of(context).colorScheme.primary,
                           ),
                         ),
                         errorBorder: OutlineInputBorder(
@@ -108,31 +108,7 @@ class _CreateTextQrState extends State<CreateTextQr> {
                       ),
                     ),
                     SizedBox(height: 28),
-                    FilledButton(
-                      onPressed: submitForm,
-                      style: ButtonStyle(
-                        shape: WidgetStatePropertyAll(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(6),
-                          ),
-                        ),
-                      ),
-                      child: SizedBox(
-                        height: 50,
-                        width: double.infinity,
-                        child: Center(
-                          child: Text(
-                            "Create QR",
-                            style: TextStyle(
-                              fontSize: 18,
-                              letterSpacing: 1.2,
-                              fontWeight: FontWeight.w600,
-                              fontFamily: GoogleFonts.rubik().fontFamily,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
+                    PrimaryButton(onSubmit: submitForm, label: "Create QR"),
                   ],
                 ),
               ),
