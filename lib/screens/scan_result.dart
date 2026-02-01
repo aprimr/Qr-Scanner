@@ -61,7 +61,6 @@ class _ScanResultState extends State<ScanResult> {
           ),
         ),
         actions: [
-          ToggleThemeButton(),
           IconButton(
             onPressed: _handleFavouriteTap,
             icon: isFavourite

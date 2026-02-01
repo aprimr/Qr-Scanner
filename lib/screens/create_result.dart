@@ -81,7 +81,7 @@ class _CreateResultState extends State<CreateResult> {
             fontFamily: GoogleFonts.poppins().fontFamily,
           ),
         ),
-        actions: [ToggleThemeButton(), SizedBox(width: 8)],
+        actions: [SizedBox(width: 8)],
       ),
       body: Padding(
         padding: EdgeInsetsGeometry.symmetric(horizontal: 20, vertical: 0),

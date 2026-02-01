@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:qr_code/screens/create_tabs/create.dart';
 import 'package:qr_code/screens/favourites.dart';
@@ -19,6 +20,7 @@ class _BottomNavState extends State<BottomNav> {
   late PageController _pageController;
   // pages list
   final List<Widget> _pages = [Scan(), Create(), Favourites(), History()];
+  final List<String> _pageTitle = ["", "Create QR", "Favourites", "History"];
 
   @override
   void initState() {
@@ -50,9 +52,23 @@ class _BottomNavState extends State<BottomNav> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Row(
+          children: [
+            SizedBox(width: 10),
+            Text(
+              _pageTitle[_selectedIndex],
+              style: TextStyle(
+                fontSize: 20,
+                letterSpacing: 1.1,
+                fontWeight: FontWeight.w600,
+                fontFamily: GoogleFonts.fredoka().fontFamily,
+                color: Theme.of(context).colorScheme.outline,
+              ),
+            ),
+          ],
+        ),
         backgroundColor: Theme.of(context).colorScheme.surface,
         actions: [
-          ToggleThemeButton(),
           IconButton(
             onPressed: () {
               Navigator.pushNamed(context, AppRoutes.settingRoute);
