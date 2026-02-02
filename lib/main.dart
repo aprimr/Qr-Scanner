@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_code/provider/settings_provider.dart';
 import 'package:qr_code/provider/theme_provider.dart';
+import 'package:qr_code/screens/create_barcode_result.dart';
 import 'package:qr_code/screens/create_result.dart';
 import 'package:qr_code/screens/scan.dart';
 import 'package:qr_code/screens/scan_result.dart';
@@ -43,6 +44,7 @@ class MyApp extends StatelessWidget {
         AppRoutes.homeRoute: (context) => Scan(),
         AppRoutes.scanResultRoute: (context) => ScanResult(),
         AppRoutes.createResultRoute: (context) => CreateResult(),
+        AppRoutes.createBarcodeResultRoute: (context) => CreateBarcodeResult(),
       },
     );
   }

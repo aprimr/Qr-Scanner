@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:qr_code/screens/create_tabs/create_barcode.dart';
 import 'package:qr_code/screens/create_tabs/create_email_qr.dart';
 import 'package:qr_code/screens/create_tabs/create_phone_qr.dart';
 import 'package:qr_code/screens/create_tabs/create_sms_qr.dart';
@@ -14,7 +15,7 @@ class Create extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 7,
+      length: 8,
       child: Scaffold(
         body: Column(
           children: [
@@ -41,6 +42,7 @@ class Create extends StatelessWidget {
                 Tab(text: "Phone"),
                 Tab(text: "SMS"),
                 Tab(text: "WhatsApp"),
+                Tab(text: "BarCode"),
               ],
             ),
             const Expanded(
@@ -53,6 +55,7 @@ class Create extends StatelessWidget {
                   CreatePhoneQr(),
                   CreateSmsQr(),
                   CreateWhatsappQr(),
+                  CreateBarcode(),
                 ],
               ),
             ),
