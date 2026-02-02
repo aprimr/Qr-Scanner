@@ -19,7 +19,7 @@ class _BottomNavState extends State<BottomNav> {
   late PageController _pageController;
   // pages list
   final List<Widget> _pages = [Scan(), Create(), Favourites(), History()];
-  final List<String> _pageTitle = ["", "Create QR", "Favourites", "History"];
+  final List<String> _pageTitle = ["", "Create", "Favourites", "History"];
 
   @override
   void initState() {

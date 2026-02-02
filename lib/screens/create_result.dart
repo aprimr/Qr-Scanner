@@ -101,6 +101,9 @@ class _CreateResultState extends State<CreateResult> {
                           padding: EdgeInsets.all(20),
                           child: QrImageView(
                             data: args,
+                            backgroundColor: Theme.of(
+                              context,
+                            ).colorScheme.surface,
                             eyeStyle: QrEyeStyle(
                               eyeShape: settingsData.isRoundedEyes
                                   ? QrEyeShape.circle
