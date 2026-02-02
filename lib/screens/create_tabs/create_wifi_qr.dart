@@ -33,7 +33,7 @@ class _CreateUrlQrState extends State<CreateWifiQr> {
       String name = _nameController.text;
       String password = _passwordController.text;
 
-      // create QrData and pass in result
+      // Create QR CodeData and pass in result
       String qrData =
           "WIFI:T:$_selectedEncryption;S:$name;P:$password;H:${isHidden ? "true" : "false"};;";
       // Navigate to Create Result Screen
@@ -245,7 +245,10 @@ class _CreateUrlQrState extends State<CreateWifiQr> {
                       controlAffinity: ListTileControlAffinity.leading,
                     ),
                     SizedBox(height: 28),
-                    PrimaryButton(onSubmit: submitForm, label: "Create QR"),
+                    PrimaryButton(
+                      onSubmit: submitForm,
+                      label: "Create QR Code",
+                    ),
                   ],
                 ),
               ),

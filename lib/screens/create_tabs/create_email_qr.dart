@@ -33,7 +33,7 @@ class _CreateEmailQrState extends State<CreateEmailQr> {
       String subject = _subjectController.text;
       String message = _messageController.text;
 
-      // Create qrData
+      // Create QR CodeData
       String qrData = "MATMSG:TO:$email;SUB:$subject;BODY:$message;;";
 
       // Navigate to Create Result Screen
@@ -62,11 +62,17 @@ class _CreateEmailQrState extends State<CreateEmailQr> {
                     TextFormField(
                       controller: _emailController,
                       validator: (value) {
+                        final emailPattern = RegExp(
+                          r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
+                        );
                         if (value == null || value.isEmpty) {
                           return 'Please enter email address';
                         }
                         if (value.toString().length >= 1000) {
                           return "Maximum 1k characters allowed";
+                        }
+                        if (!emailPattern.hasMatch(value)) {
+                          return "Please enter correct email address";
                         }
                         return null;
                       },
@@ -232,7 +238,10 @@ class _CreateEmailQrState extends State<CreateEmailQr> {
                       ),
                     ),
                     SizedBox(height: 28),
-                    PrimaryButton(onSubmit: submitForm, label: "Create QR"),
+                    PrimaryButton(
+                      onSubmit: submitForm,
+                      label: "Create QR Code",
+                    ),
                   ],
                 ),
               ),

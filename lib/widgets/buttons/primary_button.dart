@@ -22,10 +22,10 @@ class PrimaryButton extends StatelessWidget {
           child: Text(
             label,
             style: TextStyle(
-              fontSize: 18,
-              letterSpacing: 1.2,
+              fontSize: 20,
+              letterSpacing: 1,
               fontWeight: FontWeight.w600,
-              fontFamily: GoogleFonts.rubik().fontFamily,
+              fontFamily: GoogleFonts.fredoka().fontFamily,
             ),
           ),
         ),

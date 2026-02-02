@@ -108,7 +108,10 @@ class _CreateTextQrState extends State<CreateTextQr> {
                       ),
                     ),
                     SizedBox(height: 28),
-                    PrimaryButton(onSubmit: submitForm, label: "Create QR"),
+                    PrimaryButton(
+                      onSubmit: submitForm,
+                      label: "Create QR Code",
+                    ),
                   ],
                 ),
               ),
