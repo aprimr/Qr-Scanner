@@ -6,7 +6,6 @@ import 'package:qr_code/screens/favourites.dart';
 import 'package:qr_code/screens/history.dart';
 import 'package:qr_code/screens/scan.dart';
 import 'package:qr_code/utils/routes.dart';
-import 'package:qr_code/widgets/buttons/toggle_theme_button.dart';
 
 class BottomNav extends StatefulWidget {
   const BottomNav({super.key});

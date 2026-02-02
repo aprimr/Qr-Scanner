@@ -10,7 +10,6 @@ import 'package:qr_code/services/open_sms.dart';
 import 'package:qr_code/services/open_url.dart';
 import 'package:qr_code/services/open_whatsapp.dart';
 import 'package:qr_code/services/search_web.dart';
-import 'package:qr_code/widgets/buttons/toggle_theme_button.dart';
 import 'package:share_plus/share_plus.dart';
 
 class _ActionItem {
