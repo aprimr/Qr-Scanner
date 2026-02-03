@@ -6,6 +6,8 @@ import 'package:provider/provider.dart';
 import 'package:qr_code/models/qr_code_model.dart';
 import 'package:qr_code/provider/settings_provider.dart';
 import 'package:qr_code/services/audio_player.dart';
+import 'package:qr_code/services/pick_image_from_gallery.dart';
+import 'package:qr_code/services/scan_qr_from_image.dart';
 import 'package:qr_code/utils/routes.dart';
 import 'package:qr_code/widgets/qr_scanner_overlay.dart';
 import 'package:qr_code/services/snackbar.dart';
@@ -112,6 +114,41 @@ class _ScanState extends State<Scan> {
     showSnackbar(context, message: error.toString());
   }
 
+  Future<void> scanFromGallery() async {
+    final file = await pickImageFromGallery();
+
+    if (file == null) return;
+
+    final result = await scanQrFromImage(file);
+
+    if (result == null) {
+      if (!mounted) return;
+      showSnackbar(context, message: "No Qr Code detected");
+    } else {
+      final QRCodeModel qrCodeModel = QRCodeModel.fromRaw(result);
+      // Vibrate on scan
+      if (await Vibration.hasVibrator() && settingsData.vibrateOnScan) {
+        Vibration.vibrate(duration: 200);
+      }
+      if (!mounted) return;
+      Navigator.pushNamed(
+        context,
+        AppRoutes.scanResultRoute,
+        arguments: qrCodeModel,
+      ).then((_) {
+        //----
+        // If screen mounts, set `isScanned` to false
+        // so that user can scan another QR
+        //----
+        if (mounted) {
+          setState(() {
+            isScanned = false;
+          });
+        }
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -141,7 +178,7 @@ class _ScanState extends State<Scan> {
             ),
             SizedBox(width: 14),
             IconButton(
-              onPressed: () {},
+              onPressed: scanFromGallery,
               icon: HugeIcon(
                 size: 24,
                 icon: HugeIcons.strokeRoundedImageUpload,
