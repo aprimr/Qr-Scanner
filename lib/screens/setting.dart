@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_code/provider/favourite_provider.dart';
+import 'package:qr_code/provider/history_provider.dart';
 import 'package:qr_code/provider/settings_provider.dart';
 import 'package:qr_code/provider/theme_provider.dart';
 import 'package:settings_ui/settings_ui.dart';
@@ -22,6 +23,7 @@ class _SettingState extends State<Setting> {
     final settingsData = context.watch<SettingsProvider>();
     final settingsMethod = context.read<SettingsProvider>();
     final favouritesMethod = context.read<FavouriteProvider>();
+    final historyMethod = context.read<HistoryProvider>();
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -137,7 +139,9 @@ class _SettingState extends State<Setting> {
                   color: Theme.of(context).colorScheme.error,
                 ),
                 title: _tileTitle(title: "Clear Scan History", isDanger: true),
-                onPressed: (value) {},
+                onPressed: (value) {
+                  historyMethod.clearHistory();
+                },
               ),
             ],
           ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_code/provider/favourite_provider.dart';
+import 'package:qr_code/provider/history_provider.dart';
 import 'package:qr_code/provider/settings_provider.dart';
 import 'package:qr_code/provider/theme_provider.dart';
 import 'package:qr_code/screens/create_barcode_result.dart';
@@ -19,6 +20,7 @@ void main() {
         ChangeNotifierProvider(create: (_) => SettingsProvider()),
         ChangeNotifierProvider(create: (_) => ThemeProvider()),
         ChangeNotifierProvider(create: (_) => FavouriteProvider()),
+        ChangeNotifierProvider(create: (_) => HistoryProvider()),
       ],
       child: const MyApp(),
     ),

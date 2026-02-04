@@ -4,6 +4,7 @@ import 'package:hugeicons/hugeicons.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_code/models/qr_code_model.dart';
+import 'package:qr_code/provider/history_provider.dart';
 import 'package:qr_code/provider/settings_provider.dart';
 import 'package:qr_code/services/audio_player.dart';
 import 'package:qr_code/services/pick_image_from_gallery.dart';
@@ -26,11 +27,13 @@ class _ScanState extends State<Scan> {
   bool isScanned = false;
   final MobileScannerController _scannerController = MobileScannerController();
   late final SettingsProvider settingsData;
+  late final HistoryProvider historyData;
 
   @override
   void initState() {
     super.initState();
     settingsData = Provider.of<SettingsProvider>(context, listen: false);
+    historyData = Provider.of<HistoryProvider>(context, listen: false);
   }
 
   //----
@@ -90,6 +93,10 @@ class _ScanState extends State<Scan> {
       // Vibrate on scan
       if (await Vibration.hasVibrator() && settingsData.vibrateOnScan) {
         Vibration.vibrate(duration: 200);
+      }
+      // save Scan History
+      if (settingsData.saveScanHistory) {
+        historyData.addToHistory(qrCodeModel.rawData);
       }
       if (!mounted) return;
       Navigator.pushNamed(
