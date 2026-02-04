@@ -41,13 +41,13 @@ class _SettingState extends State<Setting> {
           settingsListBackground: Theme.of(context).colorScheme.surface,
           settingsSectionBackground: Theme.of(
             context,
-          ).colorScheme.outlineVariant,
+          ).colorScheme.surfaceContainerHighest,
         ),
         darkTheme: SettingsThemeData(
           settingsListBackground: Theme.of(context).colorScheme.surface,
           settingsSectionBackground: Theme.of(
             context,
-          ).colorScheme.outlineVariant,
+          ).colorScheme.surfaceContainerHighest,
         ),
         contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 14),
         sections: [

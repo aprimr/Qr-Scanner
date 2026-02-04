@@ -72,12 +72,12 @@ class Favourites extends StatelessWidget {
           }
 
           return Card(
+            elevation: 1,
             margin: const EdgeInsets.only(bottom: 16),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
             ),
-            color: Theme.of(context).colorScheme.outlineVariant,
-            elevation: 0.5,
+            color: Theme.of(context).colorScheme.surfaceContainerHighest,
             child: ListTile(
               onTap: () {
                 Navigator.pushNamed(
@@ -86,6 +86,7 @@ class Favourites extends StatelessWidget {
                   arguments: parsedQrModel,
                 );
               },
+              tileColor: Colors.transparent,
               contentPadding: const EdgeInsets.symmetric(
                 horizontal: 20,
                 vertical: 10,

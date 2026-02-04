@@ -4,6 +4,7 @@ import 'package:hugeicons/hugeicons.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_code/models/qr_code_model.dart';
 import 'package:qr_code/provider/history_provider.dart';
+import 'package:qr_code/provider/theme_provider.dart';
 import 'package:qr_code/utils/routes.dart';
 
 class History extends StatelessWidget {
@@ -11,6 +12,7 @@ class History extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<ThemeProvider>();
     final historyData = context.watch<HistoryProvider>();
     final scanHistoryList = historyData.scanHistory;
 
@@ -81,8 +83,8 @@ class History extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
             ),
-            color: Theme.of(context).colorScheme.outlineVariant,
-            elevation: 0.5,
+            elevation: 1,
+            color: Theme.of(context).colorScheme.surfaceContainerHighest,
             child: ListTile(
               onTap: () {
                 Navigator.pushNamed(
