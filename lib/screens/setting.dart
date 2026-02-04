@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:provider/provider.dart';
+import 'package:qr_code/provider/favourite_provider.dart';
 import 'package:qr_code/provider/settings_provider.dart';
 import 'package:qr_code/provider/theme_provider.dart';
 import 'package:settings_ui/settings_ui.dart';
@@ -20,6 +21,7 @@ class _SettingState extends State<Setting> {
     final themeData = context.watch<ThemeProvider>();
     final settingsData = context.watch<SettingsProvider>();
     final settingsMethod = context.read<SettingsProvider>();
+    final favouritesMethod = context.read<FavouriteProvider>();
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -35,11 +37,15 @@ class _SettingState extends State<Setting> {
       body: SettingsList(
         lightTheme: SettingsThemeData(
           settingsListBackground: Theme.of(context).colorScheme.surface,
-          settingsSectionBackground: const Color(0xFFF7F7F7),
+          settingsSectionBackground: Theme.of(
+            context,
+          ).colorScheme.outlineVariant,
         ),
         darkTheme: SettingsThemeData(
           settingsListBackground: Theme.of(context).colorScheme.surface,
-          settingsSectionBackground: const Color(0xFF191919),
+          settingsSectionBackground: Theme.of(
+            context,
+          ).colorScheme.outlineVariant,
         ),
         contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 14),
         sections: [
@@ -113,6 +119,19 @@ class _SettingState extends State<Setting> {
                 initialValue: settingsData.saveScanHistory,
                 onToggle: (value) async {
                   settingsMethod.toggleSaveScanHistory(value);
+                },
+              ),
+              SettingsTile(
+                leading: Icon(
+                  Icons.auto_delete_rounded,
+                  color: Theme.of(context).colorScheme.error,
+                ),
+                title: Text(
+                  "Clear Favourites",
+                  style: TextStyle(color: Theme.of(context).colorScheme.error),
+                ),
+                onPressed: (value) {
+                  favouritesMethod.clearFavourites();
                 },
               ),
               SettingsTile(

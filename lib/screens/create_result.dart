@@ -94,7 +94,7 @@ class _CreateResultState extends State<CreateResult> {
                   children: [
                     SizedBox(height: 24),
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 30),
+                      padding: EdgeInsets.symmetric(horizontal: 24),
                       child: RepaintBoundary(
                         key: _qrCodeKey,
                         child: Container(

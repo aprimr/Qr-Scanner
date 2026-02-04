@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:provider/provider.dart';
 import 'package:qr_code/models/qr_code_model.dart';
+import 'package:qr_code/provider/favourite_provider.dart';
 import 'package:qr_code/services/connect_wifi.dart';
 import 'package:qr_code/services/copy_to_clipboard.dart';
 import 'package:qr_code/services/open_call.dart';
@@ -39,16 +41,21 @@ class _ScanResultState extends State<ScanResult> {
   //----
   // Functions
   //----
-  void _handleFavouriteTap() {
-    setState(() {
-      isFavourite = !isFavourite;
-    });
+  void _handleFavouriteTap(BuildContext context, {required String data}) {
+    final favouritesMethod = context.read<FavouriteProvider>();
+    favouritesMethod.toggleFavourites(data);
   }
 
   @override
   Widget build(BuildContext context) {
     final qrCodeModel =
         ModalRoute.of(context)!.settings.arguments as QRCodeModel?;
+
+    if (qrCodeModel == null) {
+      return const Scaffold(body: Center(child: Text("No QR data found")));
+    }
+
+    final favouritesData = context.watch<FavouriteProvider>();
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -61,15 +68,16 @@ class _ScanResultState extends State<ScanResult> {
         ),
         actions: [
           IconButton(
-            onPressed: _handleFavouriteTap,
-            icon: isFavourite
+            onPressed: () {
+              _handleFavouriteTap(context, data: qrCodeModel.rawData);
+            },
+            icon: favouritesData.containsFavourite(qrCodeModel.rawData)
                 ? Icon(
                     Icons.favorite_rounded,
                     color: Theme.of(context).colorScheme.error,
                   )
                 : HugeIcon(icon: HugeIcons.strokeRoundedFavourite),
           ),
-
           SizedBox(width: 8),
         ],
       ),
@@ -78,7 +86,7 @@ class _ScanResultState extends State<ScanResult> {
         child: Column(
           children: [
             // QR Type
-            TypeBar(qrCodeModel: qrCodeModel!),
+            TypeBar(qrCodeModel: qrCodeModel),
             Expanded(
               flex: 7,
               child: SingleChildScrollView(
