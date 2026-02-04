@@ -54,19 +54,19 @@ class _SettingState extends State<Setting> {
             title: _sectionTitle("General"),
             tiles: [
               SettingsTile(
-                leading: Icon(
-                  themeData.themeMode == ThemeMode.dark
-                      ? Icons.sunny
-                      : Icons.dark_mode,
+                leading: HugeIcon(
+                  icon: themeData.themeMode == ThemeMode.dark
+                      ? HugeIcons.strokeRoundedSun03
+                      : HugeIcons.strokeRoundedMoon02,
                 ),
-                title: Text("Toggle Theme"),
+                title: _tileTitle(title: "Toggle Theme"),
                 onPressed: (value) {
                   themeData.toggleTheme();
                 },
               ),
               SettingsTile.switchTile(
-                leading: Icon(Icons.vibration),
-                title: Text("Vibrate on Scan"),
+                leading: HugeIcon(icon: HugeIcons.strokeRoundedSmartPhone03),
+                title: _tileTitle(title: "Vibrate on Scan"),
                 initialValue: settingsData.vibrateOnScan,
                 onToggle: (value) async {
                   settingsMethod.toggleVibrateOnScan(value);
@@ -77,10 +77,18 @@ class _SettingState extends State<Setting> {
               ),
               SettingsTile.switchTile(
                 leading: HugeIcon(icon: HugeIcons.strokeRoundedVolumeHigh),
-                title: Text("Beep on Scan"),
+                title: _tileTitle(title: "Beep on Scan"),
                 initialValue: settingsData.beepOnScan,
                 onToggle: (value) async {
                   settingsMethod.toggleBeepOnScan(value);
+                },
+              ),
+              SettingsTile.switchTile(
+                leading: HugeIcon(icon: HugeIcons.strokeRoundedClock04),
+                title: _tileTitle(title: "Save Scan History"),
+                initialValue: settingsData.saveScanHistory,
+                onToggle: (value) async {
+                  settingsMethod.toggleSaveScanHistory(value);
                 },
               ),
             ],
@@ -95,16 +103,16 @@ class _SettingState extends State<Setting> {
                 onToggle: (value) {
                   settingsMethod.toggleRoundedEyes(value);
                 },
-                leading: Icon(Icons.qr_code_outlined),
-                title: Text("QR Rounded Eyes"),
+                leading: HugeIcon(icon: HugeIcons.strokeRoundedQrCode),
+                title: _tileTitle(title: "QR Rounded Eyes"),
               ),
               SettingsTile.switchTile(
                 initialValue: settingsData.isRoundedDots,
                 onToggle: (value) {
                   settingsMethod.toggleRoundedDots(value);
                 },
-                leading: Icon(Icons.qr_code_outlined),
-                title: Text("QR Rounded Dots"),
+                leading: HugeIcon(icon: HugeIcons.strokeRoundedQrCode),
+                title: _tileTitle(title: "QR Rounded Dots"),
               ),
             ],
           ),
@@ -113,36 +121,22 @@ class _SettingState extends State<Setting> {
           SettingsSection(
             title: _sectionTitle("App Settings"),
             tiles: [
-              SettingsTile.switchTile(
-                leading: Icon(Icons.history),
-                title: Text("Save Scan History"),
-                initialValue: settingsData.saveScanHistory,
-                onToggle: (value) async {
-                  settingsMethod.toggleSaveScanHistory(value);
-                },
-              ),
               SettingsTile(
-                leading: Icon(
-                  Icons.auto_delete_rounded,
+                leading: HugeIcon(
+                  icon: HugeIcons.strokeRoundedDelete02,
                   color: Theme.of(context).colorScheme.error,
                 ),
-                title: Text(
-                  "Clear Favourites",
-                  style: TextStyle(color: Theme.of(context).colorScheme.error),
-                ),
+                title: _tileTitle(title: "Clear Favourites", isDanger: true),
                 onPressed: (value) {
                   favouritesMethod.clearFavourites();
                 },
               ),
               SettingsTile(
-                leading: Icon(
-                  Icons.auto_delete_rounded,
+                leading: HugeIcon(
+                  icon: HugeIcons.strokeRoundedDelete02,
                   color: Theme.of(context).colorScheme.error,
                 ),
-                title: Text(
-                  "Clear Scan History",
-                  style: TextStyle(color: Theme.of(context).colorScheme.error),
-                ),
+                title: _tileTitle(title: "Clear Scan History", isDanger: true),
                 onPressed: (value) {},
               ),
             ],
@@ -159,6 +153,18 @@ class _SettingState extends State<Setting> {
         fontFamily: GoogleFonts.poppins().fontFamily,
         fontWeight: FontWeight.w600,
         color: Theme.of(context).colorScheme.primary,
+      ),
+    );
+  }
+
+  Widget _tileTitle({required String title, bool isDanger = false}) {
+    return Text(
+      title,
+      style: TextStyle(
+        fontFamily: GoogleFonts.fredoka().fontFamily,
+        color: isDanger
+            ? Theme.of(context).colorScheme.error
+            : Theme.of(context).colorScheme.inverseSurface,
       ),
     );
   }
