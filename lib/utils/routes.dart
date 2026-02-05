@@ -4,4 +4,5 @@ class AppRoutes {
   static String scanResultRoute = "/scan-result";
   static String createResultRoute = "/create-result";
   static String createBarcodeResultRoute = "/create-barcode-result";
+  static String aboutRoute = "/about";
 }

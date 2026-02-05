@@ -4,6 +4,7 @@ import 'package:qr_code/provider/favourite_provider.dart';
 import 'package:qr_code/provider/history_provider.dart';
 import 'package:qr_code/provider/settings_provider.dart';
 import 'package:qr_code/provider/theme_provider.dart';
+import 'package:qr_code/screens/about.dart';
 import 'package:qr_code/screens/create_barcode_result.dart';
 import 'package:qr_code/screens/create_result.dart';
 import 'package:qr_code/screens/scan.dart';
@@ -49,6 +50,7 @@ class MyApp extends StatelessWidget {
         AppRoutes.scanResultRoute: (context) => ScanResult(),
         AppRoutes.createResultRoute: (context) => CreateResult(),
         AppRoutes.createBarcodeResultRoute: (context) => CreateBarcodeResult(),
+        AppRoutes.aboutRoute: (context) => About(),
       },
     );
   }

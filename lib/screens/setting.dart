@@ -6,6 +6,7 @@ import 'package:qr_code/provider/favourite_provider.dart';
 import 'package:qr_code/provider/history_provider.dart';
 import 'package:qr_code/provider/settings_provider.dart';
 import 'package:qr_code/provider/theme_provider.dart';
+import 'package:qr_code/utils/routes.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:vibration/vibration.dart';
 
@@ -27,7 +28,9 @@ class _SettingState extends State<Setting> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: Theme.of(context).colorScheme.surface,
+        backgroundColor: Colors.transparent,
+        surfaceTintColor: Colors.transparent,
+        scrolledUnderElevation: 0,
         title: Text(
           "Settings",
           style: TextStyle(
@@ -142,6 +145,27 @@ class _SettingState extends State<Setting> {
                 onPressed: (value) {
                   historyMethod.clearHistory();
                 },
+              ),
+            ],
+          ),
+
+          // App Settings
+          SettingsSection(
+            title: _sectionTitle("About"),
+            tiles: [
+              SettingsTile(
+                leading: HugeIcon(
+                  icon: HugeIcons.strokeRoundedInformationCircle,
+                ),
+                title: _tileTitle(title: "About App"),
+                onPressed: (value) {
+                  Navigator.pushNamed(context, AppRoutes.aboutRoute);
+                },
+              ),
+              SettingsTile(
+                leading: HugeIcon(icon: HugeIcons.strokeRoundedStar),
+                title: _tileTitle(title: "Rate this App"),
+                onPressed: (value) {},
               ),
             ],
           ),
