@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String title = "QR Scanner";
+    final String title = "ScanIt - QR Code & Barcode Scanner";
     final themeData = context.watch<ThemeProvider>();
     return MaterialApp(
       title: title,
@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
         AppRoutes.scanResultRoute: (context) => ScanResult(),
         AppRoutes.createResultRoute: (context) => CreateResult(),
         AppRoutes.createBarcodeResultRoute: (context) => CreateBarcodeResult(),
-        AppRoutes.aboutRoute: (context) => About(),
+        AppRoutes.aboutRoute: (context) => About(appName: title),
         AppRoutes.myQrCodeRoute: (context) => MyQrCode(),
       },
     );

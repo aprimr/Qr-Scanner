@@ -245,6 +245,7 @@ class _MyQrCodeState extends State<MyQrCode> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
+                      const SizedBox(height: 6),
                       _buildTextField(
                         _firstNameController,
                         "First Name",

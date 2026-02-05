@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class About extends StatelessWidget {
-  const About({super.key});
+  final String appName;
+  const About({super.key, required this.appName});
 
   @override
   Widget build(BuildContext context) {
     final textStyle = GoogleFonts.poppins();
     final theme = Theme.of(context);
-    final appName = "ScanIt - QR Code & Barcode Scanner";
 
     return Scaffold(
       appBar: AppBar(

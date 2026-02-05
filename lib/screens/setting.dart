@@ -6,6 +6,7 @@ import 'package:qr_code/provider/favourite_provider.dart';
 import 'package:qr_code/provider/history_provider.dart';
 import 'package:qr_code/provider/settings_provider.dart';
 import 'package:qr_code/provider/theme_provider.dart';
+import 'package:qr_code/services/audio_player.dart';
 import 'package:qr_code/utils/routes.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:vibration/vibration.dart';
@@ -82,8 +83,8 @@ class _SettingState extends State<Setting> {
                 initialValue: settingsData.vibrateOnScan,
                 onToggle: (value) async {
                   settingsMethod.toggleVibrateOnScan(value);
-                  if (await Vibration.hasVibrator()) {
-                    await Vibration.vibrate(duration: 100);
+                  if (value == true && await Vibration.hasVibrator()) {
+                    await Vibration.vibrate(duration: 200);
                   }
                 },
               ),
@@ -92,6 +93,9 @@ class _SettingState extends State<Setting> {
                 title: _tileTitle(title: "Beep on Scan"),
                 initialValue: settingsData.beepOnScan,
                 onToggle: (value) async {
+                  if (value == true) {
+                    beep();
+                  }
                   settingsMethod.toggleBeepOnScan(value);
                 },
               ),

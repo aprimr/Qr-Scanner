@@ -12,6 +12,9 @@ class HistoryProvider extends ChangeNotifier {
   List<String> get scanHistory => _scanHistory.reversed.toList();
 
   void addToHistory(String qrData) {
+    if (_scanHistory.length > 200) {
+      _scanHistory.removeRange(0, 49);
+    }
     String now = DateTime.now().toIso8601String();
     String injectTime = "$qrData<~~[$now]>";
     _scanHistory.add(injectTime);
