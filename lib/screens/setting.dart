@@ -69,6 +69,13 @@ class _SettingState extends State<Setting> {
                   themeData.toggleTheme();
                 },
               ),
+              SettingsTile(
+                leading: HugeIcon(icon: HugeIcons.strokeRoundedUserSquare),
+                title: _tileTitle(title: "My QR Code"),
+                onPressed: (value) {
+                  Navigator.pushNamed(context, AppRoutes.myQrCodeRoute);
+                },
+              ),
               SettingsTile.switchTile(
                 leading: HugeIcon(icon: HugeIcons.strokeRoundedSmartPhone03),
                 title: _tileTitle(title: "Vibrate on Scan"),

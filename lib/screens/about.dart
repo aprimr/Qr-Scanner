@@ -30,7 +30,7 @@ class About extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            /// Header
+            // Header
             Text(
               appName,
               style: textStyle.copyWith(
@@ -51,7 +51,7 @@ class About extends StatelessWidget {
 
             const SizedBox(height: 30),
 
-            /// About
+            // About
             _sectionTitle("About App"),
             const SizedBox(height: 12),
             Text(
@@ -63,7 +63,7 @@ class About extends StatelessWidget {
 
             const SizedBox(height: 36),
 
-            /// Features
+            // Features
             _sectionTitle("Features"),
             const SizedBox(height: 16),
 

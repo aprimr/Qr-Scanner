@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsProvider extends ChangeNotifier {
+  // My Qr Code
+  String _myQrCode = "";
+
   // Qr Code Settings
   bool _vibrateOnScan = true;
   bool _beepOnScan = false;
@@ -15,6 +18,9 @@ class SettingsProvider extends ChangeNotifier {
     _loadSetting();
   }
 
+  // get my Qr code
+  String get myQrCode => _myQrCode;
+
   // get Qr Code Settings
   bool get vibrateOnScan => _vibrateOnScan;
   bool get beepOnScan => _beepOnScan;
@@ -23,6 +29,19 @@ class SettingsProvider extends ChangeNotifier {
   // get Qr Code Styles
   bool get isRoundedEyes => _isRoundedEyes;
   bool get isRoundedDots => _isRoundedDots;
+
+  // My Qr Code functions
+  void setMyQrCode(String value) {
+    _myQrCode = value;
+    _saveSetting();
+    notifyListeners();
+  }
+
+  void unsetMyQrCode() {
+    _myQrCode = "";
+    _saveSetting();
+    notifyListeners();
+  }
 
   // toggle Qr code Settings
   void toggleVibrateOnScan(bool value) {
@@ -59,6 +78,8 @@ class SettingsProvider extends ChangeNotifier {
   // provider functions
   void _saveSetting() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString("myQrCode", _myQrCode);
+
     prefs.setBool("isRoundedEyes", _isRoundedEyes);
     prefs.setBool("isRoundedDots", _isRoundedDots);
 
@@ -69,6 +90,8 @@ class SettingsProvider extends ChangeNotifier {
 
   void _loadSetting() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
+    _myQrCode = prefs.getString('myQrCode') ?? "";
+
     _isRoundedEyes = prefs.getBool('isRoundedEyes') ?? false;
     _isRoundedDots = prefs.getBool('isRoundedDots') ?? false;
 

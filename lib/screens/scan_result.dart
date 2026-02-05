@@ -199,9 +199,11 @@ class ScannedResult extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       qrCodeModel.displayData,
+      softWrap: true,
       style: TextStyle(
         fontSize: 18,
         height: 1.5,
+
         fontFamily: GoogleFonts.poppins().fontFamily,
       ),
     );
