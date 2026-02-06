@@ -8,6 +8,7 @@ import 'package:qr_code/provider/theme_provider.dart';
 import 'package:qr_code/screens/about.dart';
 import 'package:qr_code/screens/create_barcode_result.dart';
 import 'package:qr_code/screens/create_result.dart';
+import 'package:qr_code/screens/faq.dart';
 import 'package:qr_code/screens/my_qr_code.dart';
 import 'package:qr_code/screens/scan.dart';
 import 'package:qr_code/screens/scan_result.dart';
@@ -56,6 +57,7 @@ class MyApp extends StatelessWidget {
         AppRoutes.createBarcodeResultRoute: (context) => CreateBarcodeResult(),
         AppRoutes.aboutRoute: (context) => About(appName: title),
         AppRoutes.myQrCodeRoute: (context) => MyQrCode(),
+        AppRoutes.faqRoute: (context) => Faq(),
       },
     );
   }

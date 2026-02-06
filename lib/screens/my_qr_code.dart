@@ -141,9 +141,6 @@ class _MyQrCodeState extends State<MyQrCode> {
         appBar: AppBar(
           centerTitle: true,
           elevation: 0,
-          backgroundColor: Colors.transparent,
-          surfaceTintColor: Colors.transparent,
-          scrolledUnderElevation: 0,
           title: Text(
             "My QR Code",
             style: TextStyle(
@@ -224,9 +221,6 @@ class _MyQrCodeState extends State<MyQrCode> {
       appBar: AppBar(
         centerTitle: true,
         elevation: 0,
-        backgroundColor: Colors.transparent,
-        surfaceTintColor: Colors.transparent,
-        scrolledUnderElevation: 0,
         title: Text(
           "My QR Code",
           style: TextStyle(

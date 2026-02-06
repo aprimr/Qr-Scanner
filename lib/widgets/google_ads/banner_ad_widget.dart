@@ -9,6 +9,9 @@ class BannerAdWidget extends StatefulWidget {
 }
 
 class _BannerAdWidgetState extends State<BannerAdWidget> {
+  // Control Ads Display
+  final bool _displayAds = true;
+  //
   BannerAd? _bannerAd;
   bool _isLoaded = false;
   final String adUnitId = "ca-app-pub-3940256099942544/9214589741";
@@ -47,7 +50,7 @@ class _BannerAdWidgetState extends State<BannerAdWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (_bannerAd != null && _isLoaded) {
+    if (_bannerAd != null && _isLoaded && _displayAds) {
       return SizedBox(
         width: double.infinity,
         height: _bannerAd?.size.height.toDouble(),

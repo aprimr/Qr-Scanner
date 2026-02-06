@@ -6,4 +6,5 @@ class AppRoutes {
   static String createBarcodeResultRoute = "/create-barcode-result";
   static String aboutRoute = "/about";
   static String myQrCodeRoute = "/my-qr-code";
+  static String faqRoute = "/faq";
 }

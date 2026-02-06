@@ -9,14 +9,11 @@ class About extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textStyle = GoogleFonts.poppins();
-    final theme = Theme.of(context);
-
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         elevation: 0,
-        backgroundColor: Colors.transparent,
-        surfaceTintColor: Colors.transparent,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         scrolledUnderElevation: 0,
         title: Text(
           "About",

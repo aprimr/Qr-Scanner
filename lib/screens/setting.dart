@@ -30,8 +30,7 @@ class _SettingState extends State<Setting> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: Colors.transparent,
-        surfaceTintColor: Colors.transparent,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         scrolledUnderElevation: 0,
         title: Text(
           "Settings",
@@ -172,6 +171,15 @@ class _SettingState extends State<Setting> {
                 title: _tileTitle(title: "About App"),
                 onPressed: (value) {
                   Navigator.pushNamed(context, AppRoutes.aboutRoute);
+                },
+              ),
+              SettingsTile(
+                leading: HugeIcon(
+                  icon: HugeIcons.strokeRoundedBubbleChatQuestion,
+                ),
+                title: _tileTitle(title: "FAQ"),
+                onPressed: (value) {
+                  Navigator.pushNamed(context, AppRoutes.faqRoute);
                 },
               ),
               SettingsTile(
