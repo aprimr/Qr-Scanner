@@ -138,6 +138,10 @@ class _ScanState extends State<Scan> {
       if (await Vibration.hasVibrator() && settingsData.vibrateOnScan) {
         Vibration.vibrate(duration: 200);
       }
+      // save Scan History
+      if (settingsData.saveScanHistory) {
+        historyData.addToHistory(qrCodeModel.rawData);
+      }
       if (!mounted) return;
       Navigator.pushNamed(
         context,
