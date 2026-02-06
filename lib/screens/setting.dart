@@ -8,6 +8,7 @@ import 'package:qr_code/provider/settings_provider.dart';
 import 'package:qr_code/provider/theme_provider.dart';
 import 'package:qr_code/services/audio_player.dart';
 import 'package:qr_code/utils/routes.dart';
+import 'package:qr_code/widgets/app_version.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:vibration/vibration.dart';
 
@@ -179,6 +180,50 @@ class _SettingState extends State<Setting> {
                 onPressed: (value) {},
               ),
             ],
+          ),
+
+          SettingsSection(
+            title: Column(
+              children: [
+                SizedBox(height: 6),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text(
+                      "ScanIt",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 16,
+                        letterSpacing: 0.5,
+                        fontWeight: FontWeight.w700,
+                        color: Theme.of(context).colorScheme.primary,
+                        fontFamily: GoogleFonts.ubuntu().fontFamily,
+                      ),
+                    ),
+                    SizedBox(width: 10),
+                    AppVersion(),
+                  ],
+                ),
+                SizedBox(height: 12),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Made with ❤️",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: Theme.of(context).colorScheme.outline,
+                        fontFamily: GoogleFonts.ubuntu().fontFamily,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            tiles: [],
           ),
         ],
       ),

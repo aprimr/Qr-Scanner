@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:qr_code/utils/routes.dart';
 import 'package:qr_code/widgets/buttons/primary_button.dart';
+import 'package:qr_code/widgets/google_ads/banner_ad_widget.dart';
 
 class CreateEmailQr extends StatefulWidget {
   const CreateEmailQr({super.key});
@@ -248,7 +249,7 @@ class _CreateEmailQrState extends State<CreateEmailQr> {
             ),
           ),
         ),
-        Expanded(flex: 1, child: Container(color: Colors.red)),
+        BannerAdWidget(),
       ],
     );
   }

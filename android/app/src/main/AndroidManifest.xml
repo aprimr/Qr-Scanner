@@ -5,12 +5,17 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
-        android:label="ScanIt - QR and Barcode Scanner"
+        android:label="ScanIt"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon"
         android:requestLegacyExternalStorage="true"
     >
+        <!-- AD Mob -->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-4126284875841598~8100576474" />
         <activity
             android:name=".MainActivity"
             android:exported="true"

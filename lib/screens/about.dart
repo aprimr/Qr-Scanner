@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:qr_code/widgets/app_version.dart';
 
 class About extends StatelessWidget {
   final String appName;
@@ -40,15 +41,7 @@ class About extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 4),
-            Text(
-              "v-1.0.0",
-              style: TextStyle(
-                fontSize: 14,
-                color: theme.colorScheme.outline,
-                fontFamily: GoogleFonts.fredoka().fontFamily,
-              ),
-            ),
-
+            AppVersion(),
             const SizedBox(height: 30),
 
             // About

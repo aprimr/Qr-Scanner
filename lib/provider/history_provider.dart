@@ -23,7 +23,6 @@ class HistoryProvider extends ChangeNotifier {
   }
 
   void deleteHistory(String qrData) {
-    print(qrData);
     _scanHistory.removeWhere((history) => history == qrData);
     _saveHistory();
     notifyListeners();

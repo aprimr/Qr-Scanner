@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:qr_code/utils/routes.dart';
 import 'package:qr_code/widgets/buttons/primary_button.dart';
+import 'package:qr_code/widgets/google_ads/banner_ad_widget.dart';
 import 'package:qr_code/widgets/number_code_picker.dart';
 
 class CreatePhoneQr extends StatefulWidget {
@@ -131,7 +132,7 @@ class _CreatePhoneQrState extends State<CreatePhoneQr> {
             ),
           ),
         ),
-        Expanded(flex: 1, child: Container(color: Colors.red)),
+        BannerAdWidget(),
       ],
     );
   }

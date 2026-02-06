@@ -9,7 +9,7 @@ class FavouriteProvider extends ChangeNotifier {
   }
 
   // Favourite Functions
-  List<String> get favourites => _favourites;
+  List<String> get favourites => _favourites.reversed.toList();
 
   void toggleFavourites(String data) {
     if (_favourites.contains(data)) {

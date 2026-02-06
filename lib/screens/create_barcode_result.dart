@@ -9,6 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:qr_code/services/snackbar.dart';
+import 'package:qr_code/widgets/google_ads/banner_ad_widget.dart';
 import 'package:share_plus/share_plus.dart';
 
 class CreateBarcodeResult extends StatefulWidget {
@@ -112,7 +113,7 @@ class _CreateBarcodeResultState extends State<CreateBarcodeResult> {
                 ),
               ),
             ),
-            Expanded(flex: 1, child: Container(color: Colors.amber)),
+            BannerAdWidget(),
           ],
         ),
       ),

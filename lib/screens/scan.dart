@@ -10,6 +10,7 @@ import 'package:qr_code/services/audio_player.dart';
 import 'package:qr_code/services/pick_image_from_gallery.dart';
 import 'package:qr_code/services/scan_qr_from_image.dart';
 import 'package:qr_code/utils/routes.dart';
+import 'package:qr_code/widgets/google_ads/banner_ad_widget.dart';
 import 'package:qr_code/widgets/qr_scanner_overlay.dart';
 import 'package:qr_code/services/snackbar.dart';
 import 'package:vibration/vibration.dart';
@@ -240,7 +241,7 @@ class _ScanState extends State<Scan> {
                   ],
                 ),
               ),
-              Expanded(child: Container()),
+              BannerAdWidget(),
             ],
           ),
         ),

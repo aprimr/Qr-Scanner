@@ -10,6 +10,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_code/provider/settings_provider.dart';
 import 'package:qr_code/services/snackbar.dart';
+import 'package:qr_code/widgets/google_ads/banner_ad_widget.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -130,7 +131,7 @@ class _CreateResultState extends State<CreateResult> {
                 ),
               ),
             ),
-            Expanded(flex: 1, child: Container(color: Colors.amber)),
+            BannerAdWidget(),
           ],
         ),
       ),

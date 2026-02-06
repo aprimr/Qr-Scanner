@@ -12,6 +12,7 @@ import 'package:qr_code/services/open_sms.dart';
 import 'package:qr_code/services/open_url.dart';
 import 'package:qr_code/services/open_whatsapp.dart';
 import 'package:qr_code/services/search_web.dart';
+import 'package:qr_code/widgets/google_ads/banner_ad_widget.dart';
 import 'package:share_plus/share_plus.dart';
 
 class _ActionItem {
@@ -105,7 +106,7 @@ class _ScanResultState extends State<ScanResult> {
                 ),
               ),
             ),
-            Expanded(child: Container()),
+            BannerAdWidget(),
           ],
         ),
       ),

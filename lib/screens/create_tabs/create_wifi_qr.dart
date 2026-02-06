@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:qr_code/utils/routes.dart';
 import 'package:qr_code/widgets/buttons/primary_button.dart';
+import 'package:qr_code/widgets/google_ads/banner_ad_widget.dart';
 
 class CreateWifiQr extends StatefulWidget {
   const CreateWifiQr({super.key});
@@ -255,7 +256,7 @@ class _CreateUrlQrState extends State<CreateWifiQr> {
             ),
           ),
         ),
-        Expanded(flex: 1, child: Container(color: Colors.red)),
+        BannerAdWidget(),
       ],
     );
   }
